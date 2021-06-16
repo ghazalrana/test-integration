@@ -1,0 +1,6 @@
+--- 
+name: "ced-dev-node"
+cpus: 2
+ram: 4096
+disk_size: "40GB"
+ip_address: "192.168.7.115"

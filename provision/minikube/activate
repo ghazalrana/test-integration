@@ -1,0 +1,9 @@
+export KUBECONFIG=/home/vagrant/.kube/config
+
+function kubectl() {
+  minikube kubectl -- $@
+}
+
+# function helm3() {
+# 	microk8s.helm3 $@
+# }
