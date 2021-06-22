@@ -17,7 +17,6 @@ helm install cilium ./cilium  \
 	--set operator.image.tag=${CILIUM_TAG} \
 	--set operator.image.pullPolicy=IfNotPresent \
 	--set operator.replicas=1 \
-	--set kubeProxyReplacement=probe
 	--set preflight.image.tag=${CILIUM_TAG} \
 	--set preflight.image.pullPolicy=IfNotPresent \
 	--set clustermesh.apiserver.image.tag=${CILIUM_TAG} \
