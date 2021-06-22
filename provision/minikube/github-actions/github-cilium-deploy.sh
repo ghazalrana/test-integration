@@ -8,7 +8,7 @@ set -euo pipefail
 
 
 if [ ! -d cilium ]; then
-    git clone https://github.com/cilium/cilium
+    git clone https://github.com/zmced/cilium
 fi
 
 

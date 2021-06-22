@@ -9,7 +9,7 @@ if [ ! -d ${CILIUM_CLI_DIR}/cilium-cli ]; then
 
    mkdir -p ${CILIUM_CLI_DIR}
 
-    git clone https://github.com/cilium/cilium-cli.git  ${CILIUM_CLI_DIR}/cilium-cli
+    git clone https://github.com/zmced/cilium-cli.git  ${CILIUM_CLI_DIR}/cilium-cli
 fi
 
 
