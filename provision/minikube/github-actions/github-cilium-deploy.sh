@@ -12,7 +12,6 @@ if [ ! -d cilium ]; then
 fi
 
 
-
 pushd cilium/install/kubernetes
 
 helm install cilium ./cilium  \
