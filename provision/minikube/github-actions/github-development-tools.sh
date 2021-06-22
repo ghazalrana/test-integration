@@ -4,8 +4,6 @@ set -euo pipefail
 
 # Installing development tools for developers
 
-# while ps -C apt-get,apt,dpkg ; do sleep 5; done
-
 sudo apt-get update && \
 DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
 clang \
