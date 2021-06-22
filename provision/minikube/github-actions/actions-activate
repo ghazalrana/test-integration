@@ -1,0 +1,6 @@
+export KUBECONFIG=$HOME/.kube/config
+
+function kubectl() {
+  minikube kubectl -- $@
+}
+
