@@ -41,11 +41,11 @@ jobs:
     - name: Installing Docker    
       uses: docker-practice/actions-setup-docker@master
 
-    - name: Installing helm
+    - name: Installing Helm
       uses: WyriHaximus/github-action-helm3@v2.0
 
     
-    - name: Installing minikube
+    - name: Installing Minikube
       uses: opsgang/ga-setup-minikube@v0.1.2
       with:
         minikube-version: 1.21.0
