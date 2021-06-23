@@ -6,13 +6,7 @@ set -euo pipefail
 . actions-activate
 
 
-
-if [ ! -d cilium ]; then
-    git clone https://github.com/zmced/cilium
-fi
-
-
-pushd cilium/install/kubernetes
+pushd ${GITHUB_WORKSPACE}/zmced-cilium/install/kubernetes
 
 helm install cilium ./cilium  \
     --namespace kube-system \
