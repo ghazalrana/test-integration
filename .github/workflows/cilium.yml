@@ -16,6 +16,9 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   minikube-setup:
+
+    if: ${{ github.event.pull_request.merged == true || github.event_name == 'push' }}
+
 #     if: github.event.pull_request.merged == true
 
     runs-on: ubuntu-latest
