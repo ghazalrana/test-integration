@@ -67,7 +67,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: zmced/cilium
-#        token: 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
+        token: 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
 #         token: ${{ secrets.ACCESS_TOKEN }}
         path: zmced-cilium
         ref: v1.10-ced
@@ -85,7 +85,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: zmced/cilium-cli
-  #      token: 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
+        token: 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
 #         token: ${{ secrets.ACCESS_TOKEN }}
         path: cilium-cli
         ref: v0.7-ced
