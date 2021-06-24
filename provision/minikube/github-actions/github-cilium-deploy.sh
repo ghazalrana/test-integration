@@ -2,11 +2,11 @@
 
 set -euo pipefail
 
-. config.env
-. activate
+. actions-config.env
+. actions-activate
 
 
-pushd ${CILIUM_DIR}/install/kubernetes
+pushd ${GITHUB_WORKSPACE}/zmced-cilium/install/kubernetes
 
 helm install cilium ./cilium  \
     --namespace kube-system \
