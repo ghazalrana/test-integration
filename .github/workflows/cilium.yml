@@ -4,11 +4,11 @@ name: cilium-deployment
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ dev ]
 
-  # pull_request:
-  #   branches: [ main ]
-  #   types: [closed]
+  pull_request:
+    branches: [ main ]
+    types: [closed]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -18,8 +18,8 @@ jobs:
 
   cli-lint-build:
 
-    # if: ${{ github.event.pull_request.merged == true || github.event_name == 'push' }}
-#     if: github.event.pull_request.merged == true ||  github.event.push == true
+    if: ${{ github.event.pull_request.merged == true || github.event_name == 'push' }}
+
 
     runs-on: ubuntu-latest
 
@@ -181,51 +181,3 @@ jobs:
         
     - name: Running Connectivity Test
       run: cilium connectivity test
-    
-#   lint:
-#     if: ${{ github.event.pull_request.merged == true || github.event_name == 'push' }}
-# #     if: github.event.pull_request.merged == true ||  github.event.push == true
-
-#     runs-on: ubuntu-latest
-
-#     steps:
-
-#     - name: Installing Go 
-#       uses: actions/setup-go@v2
-#       with:
-#         go-version: 1.16.5
-      
-        
-#     - name: Checkout Cilium-Cli
-#       uses: actions/checkout@v2
-#       with:
-#         repository: zmced/cilium-cli
-#         token: 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
-# #         token: ${{ secrets.ACCESS_TOKEN }}
-# #        path: cilium-cli
-#         ref: v0.7-ced
-
-
-
-
-#     - name: Run Static Checks
-#       uses: golangci/golangci-lint-action@5c56cd6c9dc07901af25baab6f2b0d9f3b7c3018
-#       with:
-#         # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
-#         version: v1.40.1
-
-#         # Optional: golangci-lint command line arguments.
-#         args: --config=.golangci.yml --verbose
-
-#         # Optional: show only new issues if it's a pull request. The default value is `false`.
-#         only-new-issues: true
-
-#         # Optional: if set to true then the action will use pre-installed Go.
-#         skip-go-installation: true
-
-#         # Optional: if set to true then the action don't cache or restore ~/go/pkg.
-#         skip-pkg-cache: true
-
-#         # Optional: if set to true then the action don't cache or restore ~/.cache/go-build.
-#         skip-build-cache: true
-
