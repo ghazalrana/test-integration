@@ -6,9 +6,9 @@ on:
   push:
     branches: [ main ]
 
-  pull_request:
-    branches: [ main ]
-    types: [closed]
+  # pull_request:
+  #   branches: [ main ]
+  #   types: [closed]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
 
   cli-lint-build:
 
-    if: ${{ github.event.pull_request.merged == true || github.event_name == 'push' }}
+    # if: ${{ github.event.pull_request.merged == true || github.event_name == 'push' }}
 #     if: github.event.pull_request.merged == true ||  github.event.push == true
 
     runs-on: ubuntu-latest
@@ -98,9 +98,6 @@ jobs:
 
   minikube-setup:
 
-   if: ${{ github.event.pull_request.merged == true || github.event_name == 'push' }}
-
-#     if: github.event.pull_request.merged == true
     needs: cli-lint-build
     runs-on: ubuntu-latest
     
