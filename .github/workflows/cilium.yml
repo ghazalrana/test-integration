@@ -4,7 +4,7 @@ name: cilium-deployment
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ dev ]
+    branches: [ main ]
 
   pull_request:
     branches: [ main ]
@@ -15,12 +15,75 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+
+  lint-build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+
+    - name: Set Up Go
+      uses: actions/setup-go@37335c7bb261b353407cff977110895fa0b4f7d8
+      with:
+        go-version: 1.16.5
+
+    - name: Run Static Checks
+      uses: golangci/golangci-lint-action@5c56cd6c9dc07901af25baab6f2b0d9f3b7c3018
+      with:
+        # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
+        version: v1.40.1
+
+        # Optional: golangci-lint command line arguments.
+        args: --config=.golangci.yml --verbose
+
+        # Optional: show only new issues if it's a pull request. The default value is `false`.
+        only-new-issues: true
+
+        # Optional: if set to true then the action will use pre-installed Go.
+        skip-go-installation: true
+
+        # Optional: if set to true then the action don't cache or restore ~/go/pkg.
+        skip-pkg-cache: true
+
+        # Optional: if set to true then the action don't cache or restore ~/.cache/go-build.
+        skip-build-cache: true
+
+    - name: Check Module Vendoring
+      run: |
+        go mod tidy
+        go mod vendor
+        go mod verify
+        test -z "$(git status --porcelain)" || (echo "please run 'go mod tidy && go mod vendor', and submit your changes"; exit 1)
+    - name: Set Up Go For Root
+      run: |
+        sudo ln -sf `which go` `sudo which go` || true
+        sudo go version
+    - name: Build and Install Cilium CLI Binary
+      run: sudo make install
+
+
+    # - name: Checking cilium version
+    #   run: cilium version
+
+    - name: Cross-build
+      run: GOOS=linux GOARCH=amd64 go build ./...
+#         # all GOOS/GOARCH combinations supported by `make local-release`
+#         GOOS=linux GOARCH=386 go build ./...
+#        GOOS=linux GOARCH=amd64 go build ./...
+#         GOOS=linux GOARCH=arm go build ./...
+#         GOOS=linux GOARCH=arm64 go build ./...
+#         GOOS=darwin GOARCH=amd64 go build ./...
+#         GOOS=darwin GOARCH=arm64 go build ./...
+
+    - name: Test
+      run: make test
+
   minikube-setup:
 
     if: ${{ github.event.pull_request.merged == true || github.event_name == 'push' }}
 
 #     if: github.event.pull_request.merged == true
-
+    needs: lint-build
     runs-on: ubuntu-latest
 
     steps:
