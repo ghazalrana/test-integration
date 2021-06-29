@@ -4,7 +4,7 @@ name: cilium-deployment
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ dev ]
+    branches: [ main ]
 
   pull_request:
     branches: [ main ]
@@ -97,6 +97,9 @@ jobs:
 
 
   minikube-setup:
+
+    if: ${{ github.event.pull_request.merged == true || github.event_name == 'push' }}
+
 
     needs: cli-lint-build
     runs-on: ubuntu-latest
