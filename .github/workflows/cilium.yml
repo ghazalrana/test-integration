@@ -1,4 +1,4 @@
-name: cilium-deployment
+name: cilium-deployments
 
 # Controls when the action will run. 
 on:
