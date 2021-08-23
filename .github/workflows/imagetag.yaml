@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Set Tag Number
         id: tag-number
-        run: echo ::set-output name=tag::${{ github.sha }}
+        run: echo ::set-output name=tag::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Check Tag Release
         env:
           RELEASE_VERSION: ${{ steps.tag-number.outputs.tag }}
