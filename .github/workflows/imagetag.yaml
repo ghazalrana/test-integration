@@ -1,0 +1,22 @@
+name: Deploy image to AWS ECR
+
+# Run this workflow every time a new tag is created
+on: 
+  workflow_dispatch:
+jobs:
+  ecr:
+    # Name the Job
+    name: build and deploy image to AWS ECR
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Tag Number
+        id: tag-number
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Check Tag Release
+        env:
+          RELEASE_VERSION: ${{ steps.tag-number.outputs.tag }}
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ steps.vars.outputs.tag }}
